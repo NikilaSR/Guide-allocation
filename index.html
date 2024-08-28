@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url("college.jpg"); /* Ensure this path is correct relative to the location of this HTML file */
+            background-repeat: no-repeat;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            max-width: 360px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
+        .login-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 32px;
+            font-weight: 700;
+            text-transform: uppercase; /* Convert text to uppercase */
+        }
+
+        .toggle-button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #6c5b7b; /* Soft purple background color */
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+            width: 45%;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-button:hover {
+            background-color: #5a4d6d; /* Darker purple on hover */
+        }
+
+        .login-form {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .login-form.active {
+            display: block;
+        }
+
+        .login-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: uppercase; /* Convert text to uppercase */
+        }
+
+        input[type="text"],
+        input[type="password"],
+        button[type="submit"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #007bff; /* Blue border on focus */
+            outline: none;
+        }
+
+        button[type="submit"] {
+            background-color: #ff6f61; /* Coral background color */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #e65a4f; /* Darker coral on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Guide Allocation</h1>
+        <button class="toggle-button" id="showAdminForm">Admin Login</button>
+        <button class="toggle-button" id="showStudentForm">Student Login</button>
+
+        <div id="adminLoginForm" class="login-form">
+            <h2>Admin Login</h2>
+            <input type="text" id="adminUsername" name="adminUsername" placeholder="Admin Username" required>
+            <input type="password" id="adminPassword" name="adminPassword" placeholder="Admin Password" required>
+            <button type="submit" onclick="adminLogin()">Login as Admin</button>
+        </div>
+
+        <div id="studentLoginForm" class="login-form">
+            <h2>Student Login</h2>
+            <input type="text" id="studentUsername" name="studentUsername" placeholder="Student Username" required>
+            <input type="password" id="studentPassword" name="studentPassword" placeholder="Student Password" required>
+            <button type="submit" onclick="studentLogin()">Login as Student</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('showAdminForm').addEventListener('click', function() {
+            document.getElementById('adminLoginForm').classList.add('active');
+            document.getElementById('studentLoginForm').classList.remove('active');
+        });
+
+        document.getElementById('showStudentForm').addEventListener('click', function() {
+            document.getElementById('studentLoginForm').classList.add('active');
+            document.getElementById('adminLoginForm').classList.remove('active');
+        });
+
+        function adminLogin() {
+            var adminUsername = document.getElementById('adminUsername').value;
+            var adminPassword = document.getElementById('adminPassword').value;
+
+            // Example admin credentials check
+            if (adminUsername === 'admin' && adminPassword === 'adminpassword') {
+                alert('Admin login successful!');
+                // Open admin dashboard in new window/tab
+                window.open('admin-dashboard.html', '_blank');
+            } else {
+                alert('Invalid admin username or password');
+            }
+        }
+
+        function studentLogin() {
+            var studentUsername = document.getElementById('studentUsername').value;
+            var studentPassword = document.getElementById('studentPassword').value;
+
+            // Example student credentials check
+            if (studentUsername === 'student' && studentPassword === 'studentpassword') {
+                alert('Student login successful!');
+                // Open student dashboard in new window/tab
+                window.open('student-dashboard.html', '_blank');
+            } else {
+                alert('Invalid student username or password');
+            }
+        }
+    </script>
+</body>
+</html>

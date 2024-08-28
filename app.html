@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Faculty Details</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        input[type=text] {
+            width: 40%;
+            padding: 12px 3px;
+            margin: 8px;
+            display: inline-block;
+            border-color: black;
+            background: #483D8B;
+            border-radius: 15px 50px 30px 5px;
+            border-style: solid;
+            font-size: 20px;
+            color: black;
+        }
+        input[type=submit], input[type=reset] {
+            width: 20%;
+            padding: 12px 3px;
+            margin: 8px;
+            display: inline-block;
+            border-color: black;
+            background: green;
+            border-radius: 15px 50px 30px 5px;
+            border-style: solid;
+            font-size: 20px;
+            color: white;
+        }
+        p {
+            width: 40%;
+            padding: 12px 3px;
+            margin: 8px;
+            display: inline-block;
+            border-color: black;
+            background: #483D8B;
+            border-radius: 15px 50px 30px 5px;
+            border-style: solid;
+            font-size: 20px;
+            color: black;
+        }
+        input[type=text]:focus,
+        select:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        h1 {
+            font-size: 30px;
+            color: #DC143C;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #483D8B;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Faculty Details</h1>
+
+    <!-- Form to insert new data -->
+    <form method="post" action="facultyvalueinserted.php">
+        <table>
+            <tr>
+                <td><input type="text" name="m1" placeholder="Enter id"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="m2" placeholder="Enter name"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="m3" placeholder="Enter designation"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="m4" placeholder="Enter specialisation"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="m5" placeholder="Enter registernumber"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+ <?php
+// Database connection
+$conn = mysqli_connect("localhost", "root", "", "niki5");
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Check if delete button is clicked and if an ID is provided
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete']) && isset($_POST['id'])) {
+    $id = $_POST['id'];
+
+    // SQL to delete a record
+    $sql = "DELETE FROM faculty1 WHERE id = ?";
+
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $id);
+
+    if (mysqli_stmt_execute($stmt)) {
+        echo "Record deleted successfully";
+    } else {
+        echo "Error deleting record: " . mysqli_error($conn);
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+// Display records
+$sql_select = "SELECT * FROM faculty1";
+$result = mysqli_query($conn, $sql_select);
+
+if (mysqli_num_rows($result) > 0) {
+    echo "<h2>Faculty Data</h2>";
+    echo "<table border='1'>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Specialisation</th>
+                <th>Register Number</th>
+                <th>Action</th>
+            </tr>";
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "<tr>";
+        echo "<td>".$row["id"]."</td>";
+        echo "<td>".$row["name"]."</td>";
+        echo "<td>".$row["designation"]."</td>";
+        echo "<td>".$row["specialisation"]."</td>";
+        echo "<td>".$row["registernumber"]."</td>";
+        echo "<td>
+                <form method='post' action='".$_SERVER['PHP_SELF']."'>
+                    <input type='hidden' name='id' value='".$row["id"]."'>
+                    <input type='submit' name='delete' value='Delete'>
+                </form>
+              </td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+} else {
+    echo "No records found";
+}
+
+mysqli_close($conn);
+?>
+
+</body>
+</html>

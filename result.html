@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>Form</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+input[type=text]
+{
+  width: 40%;
+  padding: 12px 3px;
+  margin: 8px ;
+  display: inline-block;
+  border-color: black;
+  background: #483D8B;
+  border-radius: 15px 50px 30px 5px;
+  border-style: solid;
+  font-size: 20px;
+  color:black;
+}
+input[type=submit], input[type=reset]{
+  width: 20%;
+  padding: 12px 3px;
+  margin: 8px ;
+  display: inline-block;
+  border-color: black;
+  background: green;
+  border-radius: 15px 50px 30px 5px;
+  border-style: solid;
+  font-size: 20px;
+  color:white;
+}
+p{
+  width: 40%;
+  padding: 12px 3px;
+  margin: 8px ;
+  display: inline-block;
+  border-color: black;
+  background: #483D8B;
+  border-radius: 15px 50px 30px 5px;
+  border-style: solid;
+  font-size: 20px;
+  color:black;
+}
+input[type=text]:focus,
+select:focus, {
+  background-color: #ddd;
+  outline: none;
+}
+ h1 {
+  font-size: 30px;
+  color:#DC143C;
+
+}
+</style>
+</head>
+<body>
+<h1 >faculty details</h1>
+<form method="post" action="facultyvalueinserted.php" >
+<table  cellpadding="3" cellspacing="8" 
+width="50%" height="50%">
+<tr><td><input type="text" name="m1" placeholder=
+"Enter id"></tr></td>
+<tr><td><input type="text" name="m2" placeholder=
+"Enter name"></tr></td>
+<tr><td><input type="text" name="m3" placeholder=
+"designation"></tr></td>
+<tr><td><input type="text" name="m4" placeholder=
+"specialisation"></tr></td>
+<tr><td><input type="text" name="m5" placeholder=
+"registernumber"></tr></td>
+ <tr><td><input type="Submit"  value="Submit">
+<input type="reset" value="Reset"></tr></td> 
+</form>
+<tr><td colspan="2" >
+<form method="post" action="facultyvalueselect.php">
+<input type="Submit" value="View">
+<form method="post" action="deleterow.php">
+<input type="text" name="id">
+<input type="submit" name="delete" value="Delete">
+</form>
+</tr></td>
+</table>
+</form>
+</body>
+</html>
